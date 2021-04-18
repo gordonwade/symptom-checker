@@ -119,6 +119,7 @@ class App extends Component {
         return (
             <div>
                 <h5>Please select the symptoms that affect you:</h5>
+                <br/>
                 <div className="row justify-content-center align-items-center">
                     <div className="btn-group-vertical border-top-0 align-content-center">
                         {symptomSelection}
@@ -149,12 +150,12 @@ class App extends Component {
 
     renderDisorders = () => {
         const possibleDisorders = this.state.possibleDisorders;
-        console.log("rendering items for");
+
         let disorderCards = possibleDisorders.map((item) => {
             let riskTier = getRiskTier(item, this.getSelectedSymptoms());
             let riskClass = `risk-${riskTier.replace(' ', '').toLowerCase()}`;
             return (
-                <div className="card p-3">
+                <div className="card my-3 p-3">
                     <div className={`card-header ${riskClass}`}>
                         Risk Level: {riskTier}
                     </div>
@@ -162,7 +163,7 @@ class App extends Component {
                         <h5 className="card-title">{item.disorder_name}</h5>
                         <p className="card-text">{item.disorder_type_name}</p>
                         <p className="card-text">{item.disorder_group_name}</p>
-                        <a href="#" className="btn btn-outline-primary">Learn More</a>
+                        <a href="#" className="btn btn-outline-primary disabled" aria-disabled="true">Learn More</a>
                     </div>
                 </div>
             )
@@ -170,6 +171,7 @@ class App extends Component {
 
         return (
             <div>
+                <h5>The symptoms you selected may indicate the following disorders:</h5>
                 {disorderCards}
                 <br/>
                 <div className="btn-group">

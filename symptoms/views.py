@@ -1,7 +1,5 @@
 from django.db.models import Count, Q
-from django.shortcuts import render
 from rest_framework import viewsets, generics
-from rest_framework.decorators import api_view
 from .serializers import SymptomSerializer, DisorderSerializer
 from .models import Symptom, Disorder
 
@@ -38,13 +36,11 @@ class DisorderView(generics.ListAPIView):
                 Disorder.objects.all()
                 .filter(
                     symptomdisorder__symptom_id__in=symptom_key_list,
-                    # symptomdisorder__frequency_id__in=[28412, 28405]
                 )
                 .annotate(
                     matching_symptoms=Count(
                         "symptomdisorder__symptom_id",
-                        filter=Q(symptomdisorder__symptom_id__in=symptom_key_list)
-                        # & Q(symptomdisorder__frequency_id__in=[28412, 28405])
+                        filter=Q(symptomdisorder__symptom_id__in=symptom_key_list),
                     )
                 )
                 .annotate(
@@ -69,7 +65,7 @@ class DisorderView(generics.ListAPIView):
                     + Count(
                         "symptomdisorder__symptom_id",
                         filter=Q(symptomdisorder__symptom_id__in=symptom_key_list)
-                        & Q(symptomdisorder__frequency_id__exact=18426),
+                        & Q(symptomdisorder__frequency_id__exact=28426),
                     )
                     * 2
                 )
