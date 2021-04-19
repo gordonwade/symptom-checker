@@ -1,10 +1,10 @@
-import React, {Component, Fragment} from "react";
+import React, {Component } from "react";
 import AlertModal from "./components/Modal";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import axios from "axios";
-import {getCookie} from "./utils/cookies.js";
-import {getRiskTier} from "./utils/dataProcessing.js";
+import { getCookie } from "./utils/cookies.js";
+import { getRiskTier } from "./utils/dataProcessing.js";
 
 
 class App extends Component {
@@ -38,11 +38,9 @@ class App extends Component {
             .get("/api/symptoms/")
             .then((res) => {
                 let selectionSymptoms = res.data;
-                console.log(selectionSymptoms);
                 selectionSymptoms.forEach((element) => {
                     element.selected = false;
                 });
-                console.log(selectionSymptoms);
 
                 this.setState({selectionSymptoms: selectionSymptoms});
             })
@@ -64,13 +62,10 @@ class App extends Component {
             'symptom_keys': symptomIds
         };
         axios
-        // .get("/api/disorder?symptom_keys=" + symptomIds)
             .post("/api/disorder/", body, config)
             .then((res) => {
                 let matchingDisorders = res.data;
-                // console.log(matchingDisorders);
                 this.setState({'possibleDisorders': matchingDisorders});
-                console.log("State is set!")
             })
             .catch((err) => console.log(err));
     };
@@ -87,10 +82,6 @@ class App extends Component {
 
     selectSymptom = (item) => {
         this.toggleSymptom(item.id);
-        this.renderSymptoms();
-        console.log("Getting selected symptoms...");
-        console.log(this.getSelectedSymptoms());
-        this.render();
     };
 
     resetButton = () => (
@@ -104,7 +95,6 @@ class App extends Component {
             Reset
         </button>
     );
-
 
     renderSymptoms = () => {
         const selectionSymptoms = this.state.selectionSymptoms;
