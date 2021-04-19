@@ -14,10 +14,9 @@ fulfills the objective described above. Specifically, this means:
 of rare diseases and symptoms as a source of truth.
 - Come up with a matching and scoring system using the above-mentioned data to
 return the most relevant conditions for a set of symptoms.
-- Setting up a Django server to process symptom queries as a `POST` request and
+- Set up a Django server to process symptom queries as a `POST` request and
 return the most likely disease matches.
-- Layering a React frontend on top of this to serve as a responsive user
-interface.
+- Layer a React frontend on top of this to serve as a responsive user interface.
 
 ## Installation and Setup
 As mentioned above, this app is based on Django and React, and will require
@@ -30,14 +29,14 @@ accessible on your system. I used `Python 3.8.7` while developing this app.
 with [`pyenv-virtualenv`](https://github.com/pyenv/pyenv-virtualenv#installation)
 for this, but there are many options. Your virtual environment creation command
 may vary depending on which management tool you use. For me, it was:
-```
-pyenv virtualenv 3.8.7 symptom-checker-env
-```
+    ```
+    pyenv virtualenv 3.8.7 symptom-checker-env
+    ```
 - Install the python requirements. Navigate to the top-level directory of this
 repository, activate your virtual environment, and run:
-```
-pip install -r requirements.txt
-```
+    ```
+    pip install -r requirements.txt
+    ```
 
 #### Node.js Installation
 - Ensure that you have an up-to-date installation of `node`. You can check
@@ -75,7 +74,7 @@ referred to as the "inclusion set" can be updated. This is currently done by
 updating the `INCLUSION_IDS` variable in
 `symptoms/management/commands/update_inclusion_set.py` to include the appropriate
 symptom IDs. Once any changes have been made, run `python manage.py
-update_inclusion_set` to propogate these changes to the database.
+update_inclusion_set` to propagate these changes to the database.
 - If all has gone well, the Django portion of the app should now be ready!
 
 #### Populate Environment Variables
@@ -103,7 +102,7 @@ the development server:
 without directly running the dev server.
 
 ## Implementation Details
-This section will focus on additional implementation details.
+This section will focus on discussion of additional implementation details.
 
 #### Symptom-Disorder Matching
 The matching of a set of provided symptoms to a set of possible disorders is the
@@ -177,8 +176,8 @@ explored in the "Future Directions" section. Possible ways to improve include:
 - Adding more sophisticated logic to rule out disorders with "excluded" frequency
 - Adding a "possible max" value that gives the maximum weighted match score based
 on the set of symptoms from which the patient is choosing. This could be used
-to more accurately score disorders where additional symptoms were present with
-high likelihood, but were not selected by the user.
+to more accurately score disorders where additional symptoms from the selection
+set are expected with high likelihood, but were not selected by the user.
 - Performing a more complete statistical analysis of the symptom overlap. This
 could be used to select a symptom set that would provide greater possibility for
 differentiating disorders with overlapping characteristics.
@@ -218,14 +217,19 @@ error message is triggered.
 #### Business Logic Testing
 To ensure that users are being presented with correct information, some use
 cases should be identified along with expected results. These can then be tested
-via the Django API to ensure that the logic is functioning properly.
+via the Django API to ensure that the logic is functioning properly. This could
+include:
+- Select a number of symptoms that should indicate a specific disorder. Test
+that this specific disorder is correctly returned using our scoring system.
+- Select a number of symptoms with low likelihood of overlapping. Ensure that
+the results indicate this low likelihood.
 
 ## Deployment Details
 A live version of this app is available at [https://shielded-inlet-55288.herokuapp.com/](https://shielded-inlet-55288.herokuapp.com/).
 As the URL suggests, this is hosted through Heroku. It is currently served on
 the free tier, meaning the `dyno` sleeps after 15 minutes of activity. In order
-to reduce wait time, please click the link and allow the `dyno` to wake while
-you finish reading this section!
+to reduce wait time, please open the link in a new tab and allow the `dyno` to
+wake while you finish reading this section!
 
 In order to support the live deployment of this app, I created an AWS RDS instance
 running PostgreSQL to act as the database.
