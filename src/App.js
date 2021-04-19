@@ -1,5 +1,5 @@
 import React, {Component, Fragment} from "react";
-import Example from "./components/Modal";
+import AlertModal from "./components/Modal";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import axios from "axios";
@@ -14,10 +14,20 @@ class App extends Component {
             viewCompleted: false,
             selectionSymptoms: [],
             possibleDisorders: [],
-            modal: true,
+            modal: false,
             diagnose: false,
         };
+        this.showModal = this.showModal.bind(this);
+        this.hideModal = this.hideModal.bind(this);
     }
+
+    showModal = () => {
+        this.setState({ modal: true });
+    };
+
+    hideModal = () => {
+        this.setState({ modal: false });
+    };
 
     componentDidMount() {
         this.refreshList();
@@ -75,12 +85,6 @@ class App extends Component {
         this.setState({'selectionSymptoms': items});
     };
 
-    handleSubmit = (item) => {
-        this.toggle();
-
-        alert("save" + JSON.stringify(item));
-    };
-
     selectSymptom = (item) => {
         this.toggleSymptom(item.id);
         this.renderSymptoms();
@@ -135,7 +139,7 @@ class App extends Component {
                                     this.getMatches();
                                     this.setState({'diagnose': true});
                                 } else {
-                                    alert("Please select at least one symptom!")
+                                    this.showModal();
                                 }
                             }}
                         >
@@ -215,6 +219,9 @@ class App extends Component {
                         {activePanel}
                     </div>
                 </div>
+                <AlertModal show={this.state.modal} handleClose={this.hideModal}>
+                    <p>Modal</p>
+                </AlertModal>
                 <Footer/>
             </main>
 

@@ -1,20 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 
 
-function Example() {
-  const [show, setShow] = useState(true);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
+const AlertModal = ({ handleClose, show }) => {
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
-        Launch static backdrop modal
-      </Button>
-
       <Modal
         show={show}
         onHide={handleClose}
@@ -22,7 +13,7 @@ function Example() {
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Modal title</Modal.Title>
+          <Modal.Title>Symptom Selection Required</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           Please select at least one symptom for use in diagnosis.
@@ -35,6 +26,6 @@ function Example() {
       </Modal>
     </>
   );
-}
+};
 
-export default Example;
+export default AlertModal;

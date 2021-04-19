@@ -5,10 +5,9 @@ class Header extends Component {
     return (
       <div className="text-center">
         <img
-          src="https://i2.wp.com/directorsblog.nih.gov/wp-content/uploads/2014/02/rare-disease-day-logo.jpg"
-          width="300"
+          src={"/static/rare-disease-day-logo.jpeg"}
           className="img-thumbnail"
-          style={{ marginTop: "20px" }}
+          style={{ marginTop: "20px", maxWidth: "30%" }}
         />
         <hr />
         <h1>Rare Disease Symptom Checker</h1>
