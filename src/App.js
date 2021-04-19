@@ -155,8 +155,7 @@ class App extends Component {
                     </div>
                     <div className="card-body">
                         <h5 className="card-title">{item.disorder_name}</h5>
-                        <p className="card-text">{item.disorder_type_name}</p>
-                        <p className="card-text">{item.disorder_group_name}</p>
+                        <p className="card-text"><strong>{item.disorder_name}</strong> is a {item.disorder_type_name}.</p>
                         <a href="#" className="btn btn-outline-primary disabled" aria-disabled="true">Learn More</a>
                     </div>
                 </div>
